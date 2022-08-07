@@ -3,13 +3,13 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title>Spring-Boot Básico</title>
+    <title>Cartórios</title>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link rel="icon" href="/image/favicon.png" />
+    <link rel="icon" href="/image/p.png" />
 
     <!-- Bootstrap core CSS -->
     <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -31,12 +31,10 @@
     </aside>
 
     <section layout:fragment="corpo">
-        <div>conteudo principal das páginas</div>
     </section>
 </div>
 
 <footer th:replace="fragments/footer :: rodape">
-    <div>footer</div>
 </footer>
 
 <!-- Bootstrap core JavaScript
@@ -58,9 +56,6 @@
 			document.location.href = url;
 		});
 
-		$(function() {
-			$('[data-toggle="popover"]').popover();
-		});
 
 		$(document).ready(function(){
 		    $(".navbar-toggle").click(function(){
