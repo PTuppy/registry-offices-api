@@ -16,6 +16,6 @@ public interface RegistryOfficeService {
 
     RegistryEntity findById(Long id);
 
-
+    List<RegistryEntity> findByName(String name);
 
 }

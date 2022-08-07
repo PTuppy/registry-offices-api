@@ -12,6 +12,8 @@ public interface RegistryOfficesDao {
 
     RegistryEntity findById(Long id);
 
+    List<RegistryEntity> findByName(String name);
+
     void update(RegistryEntity registry);
 
     void delete(Long id);

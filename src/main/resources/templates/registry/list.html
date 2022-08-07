@@ -21,23 +21,15 @@
 
 	<div class="container">
 
-		<p>
-			<i class="oi oi-magnifying-glass"></i><span></span>
-			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseNome"
-					aria-controls="collapseNome">Nome
-			</button>
-		</p>
 		<div class="row">
 			<div class="col">
-				<div class="collapse" id="collapseNome">
-					<nav class="navbar navbar-light bg-light">
-						<form class="form-inline" method="GET" action="/registry/find/name">
-							<input class="form-control mr-sm-2" type="search" placeholder="nome" aria-label="Search"
-								   name="name" />
-							<button class="btn btn-outline-success my-2 my-sm-0">Search</button>
-						</form>
-					</nav>
-
+				<div id="divBusca">
+					<input type="text" id="txtBusca" placeholder="Buscar por nome"/>
+					<form class="form-inline" method="GET" action="/registry/find">
+						<input class="form-control mr-sm-2" type="search" placeholder="Buscar.." aria-label="Search"
+							   name="name" />
+						<button class="btn btn-outline-success my-2 my-sm-0">Search</button>
+					</form>
 				</div>
 			</div>
 		</div>

@@ -41,4 +41,10 @@ public class RegistryOfficeServiceImpl implements RegistryOfficeService{
     public RegistryEntity findById(Long id) {
         return dao.findById(id);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<RegistryEntity> findByName(String name) {
+        return dao.findByName(name);
+    }
 }

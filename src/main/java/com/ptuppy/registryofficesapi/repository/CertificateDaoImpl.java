@@ -8,8 +8,8 @@ public class CertificateDaoImpl extends AbstractDao<CertificatesEntity,Long> imp
 
     public CertificatesEntity findByName(String name) {
         return getEntityManager().createQuery(
-                        "SELECT c FROM certificates c WHERE c.name LIKE :custName",CertificatesEntity.class)
-                .setParameter("custName", name)
+                        "SELECT c FROM certificates c WHERE c.nome LIKE :nome",CertificatesEntity.class)
+                .setParameter("nome", name)
                 .getSingleResult();
     }
 
