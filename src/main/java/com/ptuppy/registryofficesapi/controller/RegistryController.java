@@ -3,6 +3,9 @@ package com.ptuppy.registryofficesapi.controller;
 import com.ptuppy.registryofficesapi.domain.CertificatesEntity;
 import com.ptuppy.registryofficesapi.domain.RegistryEntity;
 import com.ptuppy.registryofficesapi.domain.UfEnum;
+import com.ptuppy.registryofficesapi.service.CertificatesService;
+import com.ptuppy.registryofficesapi.service.RegistryOfficeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +20,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/registry")
 public class RegistryController {
+
+    @Autowired
+    private RegistryOfficeService registryOfficeService;
+
+    @Autowired
+    private CertificatesService certificatesService;
 
 
     @GetMapping
@@ -36,15 +45,14 @@ public class RegistryController {
 
     @PostMapping("/save")
     public String save(RegistryEntity registryEntity, RedirectAttributes atr){
-//        registryOfficeService.create(registryEntity);
+        registryOfficeService.create(registryEntity);
         atr.addFlashAttribute("success","Cadastro concluído com sucesso.");
         return "redirect:/registry/create";
     }
 
     @ModelAttribute("certificates")
     public List<CertificatesEntity> getCertificates() {
-        return null;
-        //return certificateService.findAll();
+        return certificatesService.findAll();
     }
 
     @ModelAttribute("ufs")
