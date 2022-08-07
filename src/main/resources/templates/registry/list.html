@@ -9,12 +9,12 @@
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
 					<i class="oi oi-caret-right"></i>
-					<span>Lista de Funcionários</span>
+					<span>Lista de Cartórios</span>
 				</li>
 			</ul>
-			<a class="btn btn-primary btn-md" href="/funcionarios/cadastrar" role="button">
+			<a class="btn btn-primary btn-md" href="/registry/create" role="button">
 				<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
-				<span>Cadastrar Funcionários</span>
+				<span>Cadastrar Cartórios</span>
 			</a>
 		</div>
 	</nav>
@@ -26,21 +26,14 @@
 			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseNome"
 					aria-controls="collapseNome">Nome
 			</button>
-			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseCargo"
-					aria-controls="collapseCargo">Cargo
-			</button>
-			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseData"
-					aria-controls="collapseData">Datas
-			</button>
 		</p>
 		<div class="row">
 			<div class="col">
 				<div class="collapse" id="collapseNome">
-
 					<nav class="navbar navbar-light bg-light">
-						<form class="form-inline" method="GET" action="/funcionarios/buscar/nome">
+						<form class="form-inline" method="GET" action="/registry/find/name">
 							<input class="form-control mr-sm-2" type="search" placeholder="nome" aria-label="Search"
-								   name="nome" />
+								   name="name" />
 							<button class="btn btn-outline-success my-2 my-sm-0">Search</button>
 						</form>
 					</nav>
@@ -48,89 +41,42 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col">
-				<div class="collapse" id="collapseCargo">
-
-					<nav class="navbar navbar-light bg-light">
-						<form class="form-inline" method="GET" action="/funcionarios/buscar/cargo">
-							<select class="form-control mr-sm-2" name="cargo" aria-label="Search">
-
-							</select>
-							<button class="btn btn-outline-success my-2 my-sm-0">Search</button>
-						</form>
-					</nav>
-
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col">
-				<div class="collapse" id="collapseData">
-
-					<nav class="navbar navbar-light bg-light">
-						<form class="form-inline" method="GET" action="/funcionarios/buscar/data">
-							<input class="form-control mr-sm-2" type="date" aria-label="Search"
-								   name="entrada" />
-							<input class="form-control mr-sm-2" type="date" aria-label="Search"
-								   name="saida" />
-							<button class="btn btn-outline-success my-2 my-sm-0">Search</button>
-						</form>
-					</nav>
-
-				</div>
-			</div>
-		</div>
-
-
 		<div class="table-responsive">
-			<table class="table table-striped table-hover table-sm">
+
+			<div th:replace="fragments/alert"></div>
+
+			<table class="table table-bordered table-striped">
 				<thead>
 				<tr>
 					<th>#</th>
 					<th>Nome</th>
-					<th>Salário</th>
-					<th>Departamento</th>
-					<th>Cargo</th>
 					<th>Endereço</th>
-					<th>Data de Entrada</th>
-					<th>Data de Saída</th>
-					<th>Ação</th>
+					<th>Certidões</th>
 				</tr>
 				</thead>
 				<tbody>
-				<tr th:each="f : ${funcionarios}">
-					<td th:text="${f.id}">2</td>
-					<td th:text="${f.nome}">Ana Maria Lindoval</td>
-					<td th:text="|R$ ${{f.salario}}|">R$ 3.560,70</td>
-					<td th:text="${f.cargo.departamento.nome}">Administração</td>
-					<td th:text="${f.cargo.nome}">Auxiliar Administrativo</td>
-					<td>
-						<button type="button" class="btn btn-secondary btn-sm" data-container="body"
-								data-toggle="popover" data-placement="top"
-								th:attr="data-content=${#strings.concat(
-			                                    f.endereco.logradouro, ', ',
-			                                    f.endereco.numero, ' ',
-			                                    f.endereco.complemento, ' - ',
-			                                    f.endereco.bairro, ', ',
-			                                    f.endereco.cidade, ' - ',
-			                                    f.endereco.uf.sigla, ' - ',
-			                                    f.endereco.cep
+				<tr th:each="r : ${registry}">
+					<td th:text="${r.id}">1</td>
+					<td th:text="${r.name}"></td>
+					<td th:text="${#strings.concat(
+			                                    r.address.address, ', ',
+			                                    r.address.number, ' ',
+			                                    r.address.additionalInfo, ' - ',
+			                                    r.address.district, ', ',
+			                                    r.address.reference, ' - ',
+			                                    r.address.city, ' - ',
+			                                    r.address.uf, ' - ',
+			                                    r.address.zipCode
 		                                    )}">
-
-							<span class="oi oi-eye" title="Visualizar" aria-hidden="true"></span>
-						</button>
 					</td>
-					<td th:text="${#temporals.format(f.dataEntrada, 'dd/MM/yyyy')}">2017/08/14</td>
-					<td th:text="${#temporals.format(f.dataSaida, 'dd/MM/yyyy')}">02/03/2015</td>
+					<td><li th:each="c : ${r.certificates}" th:text="${c.nome}"/></td>
 					<td colspan="2">
-						<a class="btn btn-info btn-sm" href="/funcionarios/editar/2" role="button">
+						<a class="btn btn-info btn-sm" th:href="@{/registry/{id}/edit (id=${r.id}) }" role="button">
 							<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 						</a>
-						<button id="btn_funcionarios/excluir/2" type="button" class="btn btn-danger btn-sm"
-								data-toggle="modal" data-target="#myModal">
+						<a class="btn btn-danger btn-sm" th:href="@{/registry/{id}/delete (id=${r.id}) }" role="button">
 							<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
-						</button>
+						</a>
 					</td>
 				</tr>
 				</tbody>
@@ -139,4 +85,4 @@
 	</div>
 </section>
 </body>
-</html>		
+</html>

@@ -20,16 +20,37 @@ public class CertificatesServiceImpl implements CertificatesService{
 
     @Override
     public List<CertificatesEntity> findAll() {
-        return remoteCertificateService.listCertificates();
+        List<CertificatesEntity> list = remoteCertificateService.listCertificates();
+
+        CertificatesEntity f = new CertificatesEntity();
+        f.setId(4L);
+        f.setNome("Nova certidão");
+        list.add(f);
+
+        list.forEach(certificate -> fetchCertificate(certificate));
+
+        return list;
     }
 
     @Override
     public CertificatesEntity findById(Long id) {
-        return remoteCertificateService.listCertificates()
-                .stream()
-                .filter(certificatesEntity -> certificatesEntity.getId()==id)
-                .findFirst()
-                .orElseThrow();
+
+        if(id==4L ){
+            CertificatesEntity f = new CertificatesEntity();
+            f.setId(4L);
+            f.setNome("Nova certidão");
+            return f;
+        } else {
+            return remoteCertificateService.listCertificates()
+                    .stream()
+                    .filter(certificatesEntity -> certificatesEntity.getId() == id)
+                    .findFirst()
+                    .orElseThrow();
+        }
+    }
+
+    private void fetchCertificate(CertificatesEntity certificate) {
+        certificateDao.update(certificate);
     }
 
 }
