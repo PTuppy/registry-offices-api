@@ -43,8 +43,10 @@ public class RegistryController {
     }
 
     @GetMapping("/list")
-    public String list(ModelMap model) {
-        model.addAttribute("registry",registryOfficeService.findAll());
+    public String list(ModelMap model,
+                       @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+                       @RequestParam(name = "page", required = false, defaultValue = "1") Integer page) {
+        model.addAttribute("pageRegistry",registryOfficeService.findAllWithPage(page,size));
         return "/registry/list";
     }
 

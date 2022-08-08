@@ -47,7 +47,7 @@
 				</tr>
 				</thead>
 				<tbody>
-				<tr th:each="r : ${registry}">
+				<tr th:each="r : ${pageRegistry.registry}">
 					<td th:text="${r.id}">1</td>
 					<td th:text="${r.name}"></td>
 					<td th:text="${#strings.concat(
@@ -73,6 +73,25 @@
 				</tr>
 				</tbody>
 			</table>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item disabled">
+						<a class="page-link" th:href="@{/registry/list(page=${pageRegistry.page -1})}" tabindex="-1">First</a>
+					</li>
+					<li th:class="${pageRegistry.page == 1} ? 'page-item disabled' : 'page-item'">
+						<a class="page-link" th:href="@{/registry/list(page=${pageRegistry.page - 1})}" tabindex="-1">Prev</a>
+					</li>
+					<li class="page-item">
+						<span class="page-link" th:text="|${pageRegistry.page} de ${pageRegistry.totalPages}|"></span>
+					</li>
+					<li th:class="${pageRegistry.page == pageRegistry.totalPages} ? 'page-item disabled' : 'page-item'">
+						<a class="page-link" th:href="@{/registry/list(page=${pageRegistry.page + 1})}">Next</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" th:href="@{/registry/list(page=${pageRegistry.totalPages})}" tabindex="-1">Last</a>
+					</li>
+				</ul>
+			</nav>
 		</div>
 	</div>
 </section>

@@ -1,6 +1,7 @@
 package com.ptuppy.registryofficesapi.service;
 
 import com.ptuppy.registryofficesapi.domain.RegistryEntity;
+import com.ptuppy.registryofficesapi.utils.PageUtil;
 
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface RegistryOfficeService {
 
     List<RegistryEntity> findByName(String name);
 
+    PageUtil<RegistryEntity> findAllWithPage(int page, int size);
 }

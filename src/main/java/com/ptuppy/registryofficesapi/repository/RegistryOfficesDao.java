@@ -1,6 +1,7 @@
 package com.ptuppy.registryofficesapi.repository;
 
 import com.ptuppy.registryofficesapi.domain.RegistryEntity;
+import com.ptuppy.registryofficesapi.utils.PageUtil;
 
 import java.util.List;
 
@@ -17,5 +18,7 @@ public interface RegistryOfficesDao {
     void update(RegistryEntity registry);
 
     void delete(Long id);
+
+    PageUtil<RegistryEntity> findAllPaginated(int page, int size);
 
 }

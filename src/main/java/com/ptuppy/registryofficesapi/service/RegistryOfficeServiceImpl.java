@@ -2,6 +2,7 @@ package com.ptuppy.registryofficesapi.service;
 
 import com.ptuppy.registryofficesapi.domain.RegistryEntity;
 import com.ptuppy.registryofficesapi.repository.RegistryOfficesDao;
+import com.ptuppy.registryofficesapi.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,5 +47,11 @@ public class RegistryOfficeServiceImpl implements RegistryOfficeService{
     @Transactional(readOnly = true)
     public List<RegistryEntity> findByName(String name) {
         return dao.findByName(name);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public PageUtil<RegistryEntity> findAllWithPage(int page, int size) {
+        return dao.findAllPaginated(page, size);
     }
 }
