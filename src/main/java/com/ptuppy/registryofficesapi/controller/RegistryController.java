@@ -8,6 +8,7 @@ import com.ptuppy.registryofficesapi.service.RegistryOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -66,14 +68,24 @@ public class RegistryController {
     }
 
     @PostMapping("/update")
-    public String update(RegistryEntity registryEntity, RedirectAttributes atr) {
+    public String update(@Valid RegistryEntity registryEntity, BindingResult result, RedirectAttributes atr) {
+
+        if(result.hasErrors()) {
+            return "/registry/creation";
+        }
+
         registryOfficeService.update(registryEntity);
         atr.addFlashAttribute("success", "Registro editado com sucesso.");
         return "redirect:/registry/list";
     }
 
     @PostMapping("/save")
-    public String save(RegistryEntity registryEntity, RedirectAttributes atr){
+    public String save(@Valid RegistryEntity registryEntity, BindingResult result, RedirectAttributes atr){
+
+        if(result.hasErrors()) {
+            return "/registry/creation";
+        }
+
         registryOfficeService.create(registryEntity);
         atr.addFlashAttribute("success","Cadastro concluído com sucesso.");
         return "redirect:/registry/create";

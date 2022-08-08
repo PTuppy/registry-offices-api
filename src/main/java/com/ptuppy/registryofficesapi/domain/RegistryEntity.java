@@ -10,15 +10,21 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
 @Table(name = "registry_offices")
 public class RegistryEntity extends AbstractEntity<Long> {
 
+    @NotBlank
+    @Size(min = 3, max = 255)
     @Column(nullable = false, unique = true)
     private String name;
 
+    @Valid
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_address_fk")
     private AddressEntity address;

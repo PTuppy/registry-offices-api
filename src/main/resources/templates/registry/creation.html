@@ -27,13 +27,17 @@
 
 		<form th:action="${registryEntity.id == null} ? @{/registry/save} : @{/registry/update}"
 			  th:object="${registryEntity}" method="POST">
+
+			<div th:replace="fragments/validacao :: validacao"></div>
+
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="name">Nome do Cartório</label>
 					<input type="text" class="form-control" id="name" placeholder="Nome"
-						   autofocus="autofocus" th:field="*{name}"/>
+						   autofocus="autofocus" th:field="*{name}"
+						   th:classapend="${#fields.hasErrors('name')} ? 'is-invalid'" />
 					<div class="invalid-feedback">
-
+						<span th:errors="*{name}"></span>
 					</div>
 				</div>
 			</div>
@@ -52,17 +56,19 @@
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="city">Cidade</label>
-					<input type="text" class="form-control" id="city" th:field="*{address.city}"/>
+					<input type="text" class="form-control" id="city" th:field="*{address.city}"
+						   th:classapend="${#fields.hasErrors('address.city')} ? 'is-invalid'" />
 					<div class="invalid-feedback">
-
+						<span th:errors="*{address.city}"></span>
 					</div>
 				</div>
 				<div class="form-group col-md-6">
 					<label for="address">Logradouro</label>
 					<input type="text" class="form-control" id="address"
-						   placeholder="logradouro sem número" th:field="*{address.address}"/>
+						   placeholder="logradouro sem número" th:field="*{address.address}"
+						   th:classapend="${#fields.hasErrors('address.address')} ? 'is-invalid'" />
 					<div class="invalid-feedback">
-
+						<span th:errors="*{address.address}"></span>
 					</div>
 				</div>
 			</div>
@@ -70,52 +76,56 @@
 				<div class="form-group col-md-6">
 					<label for="number">Número</label>
 					<input type="text" class="form-control" id="number"
-						   th:field="*{address.number}"/>
+						   th:field="*{address.number}" th:classapend="${#fields.hasErrors('address.number')} ? 'is-invalid'" />
 					<div class="invalid-feedback">
-
+						<span th:errors="*{address.number}"></span>
 					</div>
 				</div>
 				<div class="form-group col-md-6">
 					<label for="additionalInfo">Complemento</label>
 					<input type="text" class="form-control" id="additionalInfo"
-						   placeholder="fundos, casa, AP. 102, .." th:field="*{address.additionalInfo}"/>
+						   placeholder="Ex.: fundos, casa, AP. 102, .." th:field="*{address.additionalInfo}"
+						   th:classapend="${#fields.hasErrors('address.additionalInfo')} ? 'is-invalid'" />
 					<div class="invalid-feedback">
-
+						<span th:errors="*{address.additionalInfo}"></span>
 					</div>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="district">Bairro</label>
-					<input type="text" class="form-control" id="district" th:field="*{address.district}"/>
+					<input type="text" class="form-control" id="district" th:field="*{address.district}"
+						   th:classapend="${#fields.hasErrors('address.district')} ? 'is-invalid'" />
 					<div class="invalid-feedback">
-
+						<span th:errors="*{address.district}"></span>
 					</div>
 				</div>
 				<div class="form-group col-md-6">
 					<label for="reference">Referência</label>
-					<input type="text" class="form-control" id="reference" th:field="*{address.reference}"/>
+					<input type="text" class="form-control" id="reference" th:field="*{address.reference}"
+						   th:classapend="${#fields.hasErrors('address.reference')} ? 'is-invalid'" />
 					<div class="invalid-feedback">
-
+						<span th:errors="*{address.reference}"></span>
 					</div>
 				</div>
 				<div class="form-group col-md-4">
 					<label for="uf">UF</label>
-					<select id="uf" class="form-control" name="address.uf">
+					<select id="uf" class="form-control" th:field="*{address.uf}"
+							th:classapend="${#fields.hasErrors('address.uf')} ? 'is-invalid'" />
 						<option value="">Selecione...</option>
 						<option th:each="uf : ${ufs}" th:value="${uf}" th:text="${uf}"></option>
 					</select>
 					<div class="invalid-feedback">
-
+						<span th:errors="*{address.uf}"></span>
 					</div>
 				</div>
 				<div class="form-group col-md-2">
 					<label for="zipCode">Cep</label>
 					<input type="text" class="form-control" id="zipCode" pattern="\d{5}-\d{3}"
-						   th:field="*{address.zipCode}"/>
+						   th:field="*{address.zipCode}" th:classapend="${#fields.hasErrors('address.zipCode')} ? 'is-invalid'" />
 					<span class="help-block">99999-999</span>
 					<div class="invalid-feedback">
-
+						<span th:errors="*{address.zipCode}"></span>
 					</div>
 				</div>
 			</div>

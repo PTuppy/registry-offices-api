@@ -45,13 +45,15 @@
 <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 
-		var url = '';
-
-		$('button[id*="btn_"]').click(function() {
-			url = "http://localhost:8080/" + $(this).attr('id').split("_")[1];
+		$(function() {
+			$('[data-toggle="popover"]').popover();
 		});
 
-		$("#zipCode").mask("99999-999");
+		$(document).ready(function(){
+		    $(".navbar-toggle").click(function(){
+		        $(".sidebar").toggleClass("sidebar-open");
+		    })
+		});
 
 	</script>
 </body>
