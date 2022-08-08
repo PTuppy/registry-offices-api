@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+
+<section class="layout-content" layout:fragment="corpo">
+	<div class="page-header">
+		<nav class="navbar navbar-expand-md navbar-top bg-light">
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav">
+					<li class="nav-item active">
+						<i class="oi oi-caret-right"></i>
+						<span>Cadastrar Cartórios</span>
+					</li>
+				</ul>
+			</div>
+			<a class="btn btn-primary btn-md" href="@{/registry/list}" role="button">
+				<span class="oi oi-spreadsheet" title="Listar" aria-hidden="true"></span>
+				<span>Listar Cartórios</span>
+			</a>
+		</nav>
+	</div>
+
+	<div class="container" id="cadastro">
+
+		<div th:replace="fragments/alert"></div>
+
+		<form th:action="${registryEntity.id == null} ? @{/registry/save} : @{/registry/update}"
+			  th:object="${registryEntity}" method="POST">
+
+			<div th:replace="fragments/validacao :: validacao"></div>
+
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="name">Nome do Cartório</label>
+					<input type="text" class="form-control" id="name" placeholder="Nome"
+						   autofocus="autofocus" th:field="*{name}"
+						   th:classapend="${#fields.hasErrors('name')} ? 'is-invalid'" />
+					<div class="invalid-feedback">
+						<span th:errors="*{name}"></span>
+					</div>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="certificates">Certidões que emite</label>
+					<select id="certificates" class="form-control" th:field="*{certificates}" multiple="multiple">
+						<option value="">Selecione...</option>
+						<option th:each="c : ${certificates}" th:value="${{c.id}}" th:text="${{c.nome}}"></option>
+					</select>
+					<div class="invalid-feedback">
+
+					</div>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="city">Cidade</label>
+					<input type="text" class="form-control" id="city" th:field="*{address.city}"
+						   th:classapend="${#fields.hasErrors('address.city')} ? 'is-invalid'" />
+					<div class="invalid-feedback">
+						<span th:errors="*{address.city}"></span>
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="address">Logradouro</label>
+					<input type="text" class="form-control" id="address"
+						   placeholder="logradouro sem número" th:field="*{address.address}"
+						   th:classapend="${#fields.hasErrors('address.address')} ? 'is-invalid'" />
+					<div class="invalid-feedback">
+						<span th:errors="*{address.address}"></span>
+					</div>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="number">Número</label>
+					<input type="text" class="form-control" id="number"
+						   th:field="*{address.number}" th:classapend="${#fields.hasErrors('address.number')} ? 'is-invalid'" />
+					<div class="invalid-feedback">
+						<span th:errors="*{address.number}"></span>
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="additionalInfo">Complemento</label>
+					<input type="text" class="form-control" id="additionalInfo"
+						   placeholder="Ex.: fundos, casa, AP. 102, .." th:field="*{address.additionalInfo}"
+						   th:classapend="${#fields.hasErrors('address.additionalInfo')} ? 'is-invalid'" />
+					<div class="invalid-feedback">
+						<span th:errors="*{address.additionalInfo}"></span>
+					</div>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="district">Bairro</label>
+					<input type="text" class="form-control" id="district" th:field="*{address.district}"
+						   th:classapend="${#fields.hasErrors('address.district')} ? 'is-invalid'" />
+					<div class="invalid-feedback">
+						<span th:errors="*{address.district}"></span>
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="reference">Referência</label>
+					<input type="text" class="form-control" id="reference" th:field="*{address.reference}"
+						   th:classapend="${#fields.hasErrors('address.reference')} ? 'is-invalid'" />
+					<div class="invalid-feedback">
+						<span th:errors="*{address.reference}"></span>
+					</div>
+				</div>
+				<div class="form-group col-md-4">
+					<label for="uf">UF</label>
+					<select id="uf" class="form-control" th:field="*{address.uf}"
+							th:classapend="${#fields.hasErrors('address.uf')} ? 'is-invalid'" />
+						<option value="">Selecione...</option>
+						<option th:each="uf : ${ufs}" th:value="${uf}" th:text="${uf}"></option>
+					</select>
+					<div class="invalid-feedback">
+						<span th:errors="*{address.uf}"></span>
+					</div>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="zipCode">Cep</label>
+					<input type="text" class="form-control" id="zipCode" pattern="\d{5}-\d{3}"
+						   th:field="*{address.zipCode}" th:classapend="${#fields.hasErrors('address.zipCode')} ? 'is-invalid'" />
+					<span class="help-block">99999-999</span>
+					<div class="invalid-feedback">
+						<span th:errors="*{address.zipCode}"></span>
+					</div>
+				</div>
+			</div>
+			<input type="hidden" id="id" th:field="*{id}"/>
+			<input type="hidden" id="address.id" th:field="*{address.id}">
+			<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+		</form>
+	</div>
+</section>
+</body>
+</html>		

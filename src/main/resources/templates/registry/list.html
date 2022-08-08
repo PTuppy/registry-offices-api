@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+
+<section class="layout-content" layout:fragment="corpo">
+	<nav class="navbar navbar-expand-md bg-light">
+		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<i class="oi oi-caret-right"></i>
+					<span>Lista de Cartórios</span>
+				</li>
+			</ul>
+			<a class="btn btn-primary btn-md" href="/registry/create" role="button">
+				<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
+				<span>Cadastrar Cartórios</span>
+			</a>
+		</div>
+	</nav>
+
+	<div class="container">
+
+		<div class="row">
+			<div class="col">
+				<div id="divBusca">
+					<input type="text" id="txtBusca" placeholder="Buscar por nome"/>
+					<form class="form-inline" method="GET" action="/registry/find">
+						<input class="form-control mr-sm-2" type="search" placeholder="Buscar.." aria-label="Search"
+							   name="name" />
+						<button class="btn btn-outline-success my-2 my-sm-0">Search</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="table-responsive">
+
+			<div th:replace="fragments/alert"></div>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th>#</th>
+					<th>Nome</th>
+					<th>Endereço</th>
+					<th>Certidões</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr th:each="r : ${pageRegistry.registry}">
+					<td th:text="${r.id}">1</td>
+					<td th:text="${r.name}"></td>
+					<td th:text="${#strings.concat(
+			                                    r.address.address, ', ',
+			                                    r.address.number, ' ',
+			                                    r.address.additionalInfo, ' - ',
+			                                    r.address.district, ', ',
+			                                    r.address.reference, ' - ',
+			                                    r.address.city, ' - ',
+			                                    r.address.uf, ' - ',
+			                                    r.address.zipCode
+		                                    )}">
+					</td>
+					<td><li th:each="c : ${r.certificates}" th:text="${c.nome}"/></td>
+					<td colspan="2">
+						<a class="btn btn-info btn-sm" th:href="@{/registry/{id}/edit (id=${r.id}) }" role="button">
+							<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+						</a>
+						<a class="btn btn-danger btn-sm" th:href="@{/registry/{id}/delete (id=${r.id}) }" role="button">
+							<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
+						</a>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item disabled">
+						<a class="page-link" th:href="@{/registry/list(page=${pageRegistry.page -1})}" tabindex="-1">First</a>
+					</li>
+					<li th:class="${pageRegistry.page == 1} ? 'page-item disabled' : 'page-item'">
+						<a class="page-link" th:href="@{/registry/list(page=${pageRegistry.page - 1})}" tabindex="-1">Prev</a>
+					</li>
+					<li class="page-item">
+						<span class="page-link" th:text="|${pageRegistry.page} de ${pageRegistry.totalPages}|"></span>
+					</li>
+					<li th:class="${pageRegistry.page == pageRegistry.totalPages} ? 'page-item disabled' : 'page-item'">
+						<a class="page-link" th:href="@{/registry/list(page=${pageRegistry.page + 1})}">Next</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" th:href="@{/registry/list(page=${pageRegistry.totalPages})}" tabindex="-1">Last</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</section>
+</body>
+</html>

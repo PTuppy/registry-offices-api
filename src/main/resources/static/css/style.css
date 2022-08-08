@@ -1,0 +1,139 @@
+/*
+ * Base structure
+ */
+html, body {
+	height: 100%;
+}
+
+body {
+	padding-top: 56px;
+	padding-left: 0;
+} 
+
+/*
+ * main layout
+ */
+.layout-main {
+    display: flex;
+    min-height: calc(100vh - 52px);
+    overflow: hidden;
+}
+
+/*
+ * Content
+ */
+.layout-content {
+    width: 100%;
+    padding-top: 0px;
+}
+
+.container {
+	width: 100%;
+	padding-top: 20px;
+}
+
+/*
+ * Sidebar
+ */
+.sidebar {
+    width: 0px;
+    height: 100vh;
+    border-top: 1px solid #eee;
+    border-right: 1px solid #eee;
+    background-color: #1B2745;
+    flex-shrink: 0;
+    overflow: hidden;
+    transition: width .5s;
+}
+
+.sidebar .nav {
+	margin-bottom: 0px;
+}
+
+.sidebar .nav-item {
+	width: 100%;
+}
+
+.sidebar .nav-item {
+	margin-left: 0;
+}
+
+.sidebar .nav-link {
+	border-radius: 0;
+} 
+
+.sidebar ul li:hover a, .menu ul li.active a{
+    color: #041017;
+}
+
+.sidebar ul{
+    list-style: none;
+    padding: 10px 0px;
+}
+
+.sidebar ul li a{
+    display: block;
+    color:#171081;
+    padding: 10px 15px;
+    white-space: nowrap;
+}
+
+.sidebar.sidebar-open {
+    width: 300px;
+}
+
+/*
+ * nav-pills home
+ */
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+	color: #104178;
+	background-color: #07B6F2;
+}
+
+#divBusca{
+  background-color:#2F4F4F;
+  border:solid 1px;
+  border-radius:15px;
+  width:300px;
+}
+
+#txtBusca{
+  float:left;
+  background-color:transparent;
+  padding-left:5px;
+  font-style:italic;
+  font-size:18px;
+  border:none;
+  height:32px;
+  width:260px;
+}
+
+
+/*
+ * toogle do navbar do menu
+ */ 
+
+.navbar-toggle {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+/*
+ * Footer
+ */
+.layout-footer {
+	position: relative;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: 0;
+	height: 50px;
+	border-top: 1px solid #111760;
+}
+
+.footer-copy {
+	font-size: 92%;
+	display: block;
+	color: #010232;
+	text-align: center;
+}
