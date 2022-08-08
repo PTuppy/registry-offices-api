@@ -17,13 +17,9 @@ Url home do projeto:
 http://localhost:8080/registry
 
 
-## 📦 Desenvolvimento
-
-
 ## 🛠️ Construído com
 
 * [Thymeleaf](https://www.thymeleaf.org/documentation.html)
 * [Maven](https://maven.apache.org/)
 * [SPRING](https://spring.io/) 
 
- ❤️
