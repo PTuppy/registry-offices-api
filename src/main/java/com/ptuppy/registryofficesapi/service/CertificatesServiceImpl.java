@@ -18,6 +18,11 @@ public class CertificatesServiceImpl implements CertificatesService{
     @Autowired
     private RemoteCertificateService remoteCertificateService;
 
+    public CertificatesServiceImpl(CertificateDao certificateDao, RemoteCertificateService remoteCertificateService) {
+        this.certificateDao = certificateDao;
+        this.remoteCertificateService = remoteCertificateService;
+    }
+
     @Override
     public List<CertificatesEntity> findAll() {
         List<CertificatesEntity> list = remoteCertificateService.listCertificates();

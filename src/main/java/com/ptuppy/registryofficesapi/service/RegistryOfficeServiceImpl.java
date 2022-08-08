@@ -16,6 +16,10 @@ public class RegistryOfficeServiceImpl implements RegistryOfficeService{
     @Autowired
     private RegistryOfficesDao dao;
 
+    public RegistryOfficeServiceImpl(RegistryOfficesDao dao) {
+        this.dao = dao;
+    }
+
     @Override
     public void create(RegistryEntity registry) {
         dao.save(registry);

@@ -23,7 +23,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/registry")
-public class RegistryController {
+public class RegistryOfficesCreateController {
 
     @Autowired
     private RegistryOfficeService registryOfficeService;
@@ -32,53 +32,9 @@ public class RegistryController {
     private CertificatesService certificatesService;
 
 
-    @GetMapping
-    public String home() {
-        return "/home";
-    }
-
     @GetMapping("/create")
     public String create(RegistryEntity registryEntity) {
         return "/registry/creation";
-    }
-
-    @GetMapping("/list")
-    public String list(ModelMap model,
-                       @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
-                       @RequestParam(name = "page", required = false, defaultValue = "1") Integer page) {
-        model.addAttribute("pageRegistry",registryOfficeService.findAllWithPage(page,size));
-        return "/registry/list";
-    }
-
-    @GetMapping("/{id}/edit")
-    public String edit(@PathVariable("id") Long id, ModelMap model) {
-        model.addAttribute("registryEntity", registryOfficeService.findById(id));
-        return "/registry/creation";
-    }
-
-    @GetMapping("/{id}/delete")
-    public String edit(@PathVariable("id") Long id, RedirectAttributes atr) {
-        registryOfficeService.delete(id);
-        atr.addFlashAttribute("success", "Registro excluido com sucesso.");
-        return "redirect:/registry/list";
-    }
-
-    @GetMapping("/find")
-    public String findByName(@RequestParam("name") String name, ModelMap model) {
-        model.addAttribute("registry", registryOfficeService.findByName(name));
-        return "/registry/list";
-    }
-
-    @PostMapping("/update")
-    public String update(@Valid RegistryEntity registryEntity, BindingResult result, RedirectAttributes atr) {
-
-        if(result.hasErrors()) {
-            return "/registry/creation";
-        }
-
-        registryOfficeService.update(registryEntity);
-        atr.addFlashAttribute("success", "Registro editado com sucesso.");
-        return "redirect:/registry/list";
     }
 
     @PostMapping("/save")
